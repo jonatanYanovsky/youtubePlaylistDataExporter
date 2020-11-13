@@ -13,32 +13,24 @@ using VideoDataNameSpace;
 namespace youtubePlaylistExporter {
     class Program {
         static void Main(string[] args) {
+            DateTime localDate = DateTime.Now;
+            var mystring = localDate.ToString().Replace('/', '_').Replace(' ', '.').Replace(':','_');
+            var writer = new StreamWriter("../playlist_output." + mystring + ".csv");
+            var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            
             AsyncServices asyncServices = new AsyncServices();
             List<VideoData> videoDataList = new List<VideoData>();
 
             asyncServices.GetVideos(videoDataList).GetAwaiter().GetResult();
 
-            /*for (int i = 0; i < 6; i++) {
-                VideoData videoData = new VideoData();
-                videoData.Description = "d";
-                videoData.Title = "t";
-                videoData.Url = "u";
-
-                videoDataList.Add(videoData);
-            }*/
-
-            var writer = new StreamWriter("playlist_output.csv");
-            var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
             csv.WriteRecords(videoDataList);
             writer.Close();
-            /*foreach (VideoData videoData in videoDataList) {
-                csv.WriteRecord(videoData);
-                csv.NextRecord();
-            }*/
 
             Console.WriteLine("===============");
             Console.WriteLine("===============");
             Console.WriteLine("===============");
+            Console.WriteLine("Playlist data written to (parent directory): playlist_output." + mystring + ".csv");
+            Console.ReadLine();
         }
     }
 }

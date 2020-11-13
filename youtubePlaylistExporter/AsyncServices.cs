@@ -13,20 +13,20 @@ namespace youtubePlaylistExporter {
     public class AsyncServices {
         public async Task GetVideos(List<VideoData> videoDataList) {
             var youtube = new YoutubeClient();
-            var playlist = await youtube.Playlists.GetAsync("OLAK5uy_nWEw_XDViVW6OkabOr67WU58-rN760uYE");
-            // OLAK5uy_nWEw_XDViVW6OkabOr67WU58-rN760uYE PLabyTvUoQxdEElUs-tSasRZaO2us9d3lq
 
-            //var writer = new StreamWriter("C:/Users/Jon/Documents/youtubePlaylistDownloader/playlist_output.csv");
-            //var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            Console.WriteLine("Enter playlist code");
+            Console.WriteLine("Example: OLAK5uy_nWEw_XDViVW6OkabOr67WU58-rN760uYE");
 
+            var playlistCode = Console.ReadLine();
+
+            var playlist = await youtube.Playlists.GetAsync(playlistCode);
 
             VideoData videoDataHeader = new VideoData();
             videoDataHeader.Title = playlist.Title;
             videoDataHeader.Description = "Description";
             videoDataHeader.Url = playlist.Url;
             videoDataList.Add(videoDataHeader);
-
-
+            
             var somePlaylistVideos = await youtube.Playlists.GetVideosAsync(playlist.Id);
             foreach (var video in somePlaylistVideos) {
                 var Title = video.Title;
@@ -40,12 +40,9 @@ namespace youtubePlaylistExporter {
                 videoData.Url = Url;
 
                 videoDataList.Add(videoData);
-
-                //var videoDataLine = $"{title},{url},{description}";
+                
                 Console.WriteLine(Title);
             }
-            //await csv.WriteRecordsAsync(videoDataList);
-
         }
     }
 }
