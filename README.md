@@ -1,6 +1,6 @@
 Youtube Playlist Data Exporter
 
-export your playlists to CSV format as backups incase videos get deleted
+export your playlists to CSV format as backups in case videos get deleted
 
 
 ---
