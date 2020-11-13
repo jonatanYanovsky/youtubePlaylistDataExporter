@@ -29,7 +29,7 @@ namespace youtubePlaylistExporter {
             Console.WriteLine("===============");
             Console.WriteLine("===============");
             Console.WriteLine("===============");
-            Console.WriteLine("Playlist data written to (parent directory): playlist_output." + mystring + ".csv");
+            Console.WriteLine("Playlist data written to: playlist_output." + mystring + ".csv");
             Console.ReadLine();
         }
     }
